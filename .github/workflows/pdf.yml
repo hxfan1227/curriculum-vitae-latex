@@ -10,10 +10,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  build_quarto:
+  update_resume:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      id-token: write
+      pages: write
 
     steps:
       - name: Checkout Repository
@@ -53,19 +55,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
-
-  build_latex:
-    needs: [build_quarto]
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      pages: write
-      contents: write
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
       - name: Compile LaTeX Document
         uses: xu-cheng/latex-action@v3
         with:
@@ -83,7 +72,7 @@ jobs:
           path: _site
 
   deploy:
-    needs: [build_quarto, build_latex]  # 先生成 index.html 和 PDF 再部署
+    needs: [update_resume]  # 先生成 index.html 和 PDF 再部署
     runs-on: ubuntu-latest
     permissions:
       pages: write
