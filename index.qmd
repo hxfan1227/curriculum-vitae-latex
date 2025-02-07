@@ -55,6 +55,7 @@ if (status_code(response) == 200) {
 }
 
 merge_bib <- function(fname1, fname2) {
+  writeLines(paste0(sapply(readLines(fname1), function(.x) {sub('annotaion', replacement = 'autor+an', .x)}, USE.NAMES = F), collapse = '\n'), fname1)
   bib2 <- readLines(fname2)
   con <- file(fname1, open = "a")
   writeLines(bib2, con)
@@ -78,6 +79,7 @@ writeLines(paste0(
   collapse = ''), 
   'ch_en.tex')
 ```
+
 
 [Resume](resume.pdf)
 
