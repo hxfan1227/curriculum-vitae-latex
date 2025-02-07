@@ -19,13 +19,6 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Cache LaTeX Dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.texlive
-          key: ${{ runner.os }}-latex-${{ hashFiles('**/*.tex') }}
-          restore-keys: ${{ runner.os }}-latex-
-
       - name: Compile LaTeX Document
         uses: xu-cheng/latex-action@v3
         with:
@@ -37,14 +30,19 @@ jobs:
           mkdir -p public
           mv resume.pdf public/
 
-      - name: Upload PDF Artifact
-        uses: actions/upload-artifact@v4
+      - name: Upload GitHub Pages Artifact
+        uses: actions/upload-pages-artifact@v2
         with:
-          name: compiled-resume
-          path: public/resume.pdf
+          name: github-pages   # This ensures GitHub Pages receives the correct artifact name
+          path: public
 
+  deploy:
+    needs: build_latex
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+
+    steps:
       - name: Deploy to GitHub Pages
-        id: deployment
         uses: actions/deploy-pages@v4
-        with:
-          folder: public
