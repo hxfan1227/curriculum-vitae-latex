@@ -52,11 +52,7 @@ jobs:
         run: quarto render --to html
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Move index.html to Public Directory
-        run: |
-          mkdir -p public
-          mv index.html public/
+          
 
   build_latex:
     needs: [build_quarto]
@@ -76,15 +72,15 @@ jobs:
           root_file: resume.tex
           latexmk_use_xelatex: true
 
-      - name: Move PDF to Public Directory
+      - name: Move PDF to site Directory
         run: |
-          mv resume.pdf public/
+          mv resume.pdf _site/
           
       - name: Upload GitHub Pages Artifact
         uses: actions/upload-pages-artifact@v3
         with:
           name: github-pages
-          path: public
+          path: _site
 
   deploy:
     needs: [build_quarto, build_latex]  # 先生成 index.html 和 PDF 再部署
