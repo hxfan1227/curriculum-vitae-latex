@@ -83,6 +83,3 @@ writeLines(paste0(
 
 - [Resume](resume.pdf) (Last update on `r Sys.Date()`)
 
-- [Resume for recent 5 years ``](resume_5yr.pdf) (Last update on `r Sys.Date()`)
-
-
