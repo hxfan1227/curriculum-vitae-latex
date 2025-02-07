@@ -31,7 +31,7 @@ jobs:
           mv resume.pdf public/
 
       - name: Upload GitHub Pages Artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
           name: github-pages   # This ensures GitHub Pages receives the correct artifact name
           path: public
