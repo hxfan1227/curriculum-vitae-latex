@@ -55,7 +55,7 @@ if (status_code(response) == 200) {
 }
 
 merge_bib <- function(fname1, fname2) {
-  writeLines(paste0(sapply(readLines(fname1), function(.x) {sub('annotaion', replacement = 'autor+an', .x)}, USE.NAMES = F), collapse = '\n'), fname1)
+  writeLines(paste0(sapply(readLines(fname1), function(.x) {sub('annotaion', replacement = 'author+an', .x)}, USE.NAMES = F), collapse = '\n'), fname1)
   bib2 <- readLines(fname2)
   con <- file(fname1, open = "a")
   writeLines(bib2, con)
@@ -81,6 +81,8 @@ writeLines(paste0(
 ```
 
 
-[Resume](resume.pdf)
+- [Resume](resume.pdf) (Last update on `r Sys.Date()`)
+
+- [Resume for recent 5 years ``](resume_5yr.pdf) (Last update on `r Sys.Date()`)
 
 
