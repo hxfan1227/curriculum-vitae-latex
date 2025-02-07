@@ -1,0 +1,84 @@
+---
+title: "Frank (Hongxiang) Fan"
+subtitle: |
+  Data analysist, numerical modeller, hydrogeologist, and research assitant
+image: assets/images/social-profile.png
+about:
+  id: edu-exp
+  template: solana
+  image-width: 9em
+  image-shape: round
+  links:
+    - text: "{{< iconify fa6-solid:envelope >}}"
+      href: "mailto:hxfan@niglas.ac.cn"
+      aria-label: "envelope logo for email"
+    - text: "{{< iconify fa6-brands:orcid >}}"
+      href: "https://orcid.org/0000-0001-7626-1344"
+      aria-label: "ORCID logo linking to ORCID account"
+    # - text: "{{< iconify fa6-brands:mastodon >}}"
+    #   href: "https://fosstodon.org/@MickaelCanouil"
+    #   aria-label: "Mastodon logo linking to MickaelCanouil Fosstodon account"
+    #   rel: me
+    # - text: "{{< iconify fa6-brands:bluesky >}}"
+    #   href: "https://bsky.app/profile/mickael.canouil.fr"
+    #   aria-label: "BlueSky logo linking to mickael.canouil.fr account"
+    # - text: "{{< iconify fa6-brands:x-twitter >}}"
+    #   href: "https://x.com/MickaelCanouil"
+    #   aria-label: "X (Twitter) logo linking to MickaelCanouil account"
+    - text: "{{< iconify fa6-brands:linkedin >}}"
+      href: "https://www.linkedin.com/in/hongxiang-fan/"
+      aria-label: "LinkedIn logo linking to hongxiang fan account"
+    - text: "{{< iconify octicon:mark-github-16 >}}"
+      href: "https://github.com/hxfan1227"
+      aria-label: "GitHub logo linking to hxfan1227 account"
+    # - text: "{{< iconify octicon:heart-fill-16 >}} Sponsor"
+    #   href: "https://github.com/sponsors/mcanouil?o=esb"
+    #   aria-label: "GitHub Sponsor mcanouil"
+---
+
+```{r, include=FALSE}
+library(httr)
+library(jsonlite)
+owner <- "hxfan1227"  
+repo <- "curriculum-vitae"   
+path <- "data/cv.bib"
+url <- paste0("https://api.github.com/repos/", owner, "/", repo, "/contents/", path)
+response <- GET(url)
+if (status_code(response) == 200) {
+  file_info <- fromJSON(content(response, "text"))
+  file_content <- file_info$content
+  decoded_content <- rawToChar(base64enc::base64decode(file_content))
+  writeLines(decoded_content, 'publications.bib')
+} else {
+  # 如果请求失败，打印错误信息
+  cat("Failed to fetch file. Status code:", status_code(response), "\n")
+}
+
+merge_bib <- function(fname1, fname2) {
+  bib2 <- readLines(fname2)
+  con <- file(fname1, open = "a")
+  writeLines(bib2, con)
+  close(con)
+}
+
+merge_bib('publications.bib', 'ch_en.bib')
+
+big_file <- paste(readLines('publications.bib'), collapse = "")
+big_file <- unlist(strsplit(x = big_file, split = "@", fixed = TRUE))
+big_file <- big_file[nchar(big_file) != 0]
+file_list <- strsplit(x = big_file, split = "(,\t)|(,  )")
+all_entry <- sapply(file_list, function(.x) {sub('[a-z]*\\{', replacement = '', x = .x[1])}, USE.NAMES = F)
+ch_entry <- all_entry[grep('_CH$', all_entry)]
+en_entry <- sapply(ch_entry, function(.x) {sub('_CH$', '', .x)}, USE.NAMES = F)
+writeLines(paste0(
+  mapply(
+    function(ch, en) 
+      {sprintf('\\defdoublelangentry{%s}{%s}\n', ch, en)}, 
+    ch_entry, en_entry, SIMPLIFY = T, USE.NAMES = F), 
+  collapse = ''), 
+  'ch_en.tex')
+```
+
+[Resume](resume.pdf)
+
+

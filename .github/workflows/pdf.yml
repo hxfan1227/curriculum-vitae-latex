@@ -1,13 +1,45 @@
-name: Build LaTeX Document
+name: Build and Deploy Documents
 
 on:
   push:
     branches:
       - main
   pull_request:
+  schedule:
+    - cron: "0 22 * * *"  # 每天 UTC 22:00 运行
   workflow_dispatch:
 
 jobs:
+  build_quarto:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          tinytex: true
+
+      - name: Render Quarto to Generate index.html
+        run: quarto render --to html
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Move index.html to Public Directory
+        run: |
+          mkdir -p public
+          mv index.html public/
+
+      - name: Upload index.html as Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: html-page
+          path: public/index.html
+
   build_latex:
     runs-on: ubuntu-latest
     permissions:
@@ -33,11 +65,11 @@ jobs:
       - name: Upload GitHub Pages Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          name: github-pages   # This ensures GitHub Pages receives the correct artifact name
+          name: github-pages
           path: public
 
   deploy:
-    needs: build_latex
+    needs: [build_quarto, build_latex]  # 先生成 index.html 和 PDF 再部署
     runs-on: ubuntu-latest
     permissions:
       pages: write
