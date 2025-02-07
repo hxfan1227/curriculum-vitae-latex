@@ -1,0 +1,360 @@
+%% start of file `template.tex'.
+%% Copyright 2006-2015 Xavier Danaux (xdanaux@gmail.com).
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License version 1.3c,
+% available at http://www.latex-project.org/lppl/.
+
+
+\documentclass[11pt,a4paper,sans]{moderncv}        % possible options include font size ('10pt', '11pt' and '12pt'), paper size ('a4paper', 'letterpaper', 'a5paper', 'legalpaper', 'executivepaper' and 'landscape') and font family ('sans' and 'roman')
+
+% moderncv themes
+% https://tex.stackexchange.com/questions/723729/moderncv-colors-not-showing-up-at-bars
+% The color theme must be loaded before \moderncvstyle
+
+\moderncvcolor{blue}                               % color options 'black', 'blue' (default), 'burgundy', 'green', 'grey', 'orange', 'purple' and 'red'
+\moderncvstyle[details]{classic}                             % style options are 'casual' (default), 'classic', 'banking', 'oldstyle' and 'fancy'
+%\renewcommand{\familydefault}{\sfdefault}         % to set the default font; use '\sfdefault' for the default sans serif font, '\rmdefault' for the default roman one, or any tex font name
+%\nopagenumbers{}                                  % uncomment to suppress automatic page numbering for CVs longer than one page
+
+% character encoding
+% \usepackage[utf8]{inputenc}                       % if you are not using xelatex ou lualatex, replace by the encoding you are using
+% \usepackage{CJKutf8}                              % if you need to use CJK to typeset your resume in Chinese, Japanese or Korean
+\usepackage{ctex}
+
+\usepackage{xcolor}
+
+\usepackage{xparse} % 提供强大的解析功能
+
+% adjust the page margins
+\usepackage[scale=0.87]{geometry}
+% \setlength{\hintscolumnwidth}{3cm}                % if you want to change the width of the column with the dates
+%\setlength{\makecvtitlenamewidth}{10cm}           % for the 'classic' style, if you want to force the width allocated to your name and avoid line breaks. be careful though, the length is normally calculated to avoid any overlap with your personal info; use this at your own typographical risks...
+
+% bibliography with mutiple entries
+% \usepackage[style=nature, sorting=ydnt, maxnames=999, minnames=5, defernumbers=true]{biblatex}
+\usepackage[backend=biber,style=gb7714-2015,gbpub=false, maxnames=999, minnames=5, defernumbers=true,gbtype=false, sorting=ydnt,sortlocale=zh__pinyin, url=false]{biblatex}
+
+% personal data
+\name{Dr. Hongxiang}{Fan}
+\title{Assistant Professor}                               % optional, remove / comment the line if not wanted
+\address{299 Chuangzhan Road}{Nanjing, 211135}{P.R.China} % optional, remove / comment the line if not wanted; the "postcode city" and "country" arguments can be omitted or provided empty
+\phone[mobile]{(+86)~18961797701}                   % optional, remove / comment the line if not wanted; the optional "type" of the phone can be "mobile" (default), "fixed" or "fax"
+%\phone[fixed]{+2~(345)~678~901}
+%\phone[fax]{+3~(456)~789~012}
+\email{hxfan@niglas.ac.cn}  % optional, remove / comment the line if not wanted
+% \homepage{satakshi.in/purnendu}                         % optional, remove / comment the line if not wanted
+% \social[linkedin]{purnenduk90}                        % optional, remove / comment the line if not wanted
+%\social[twitter]{purnenduk90}                             % optional, remove / comment the line if not wanted
+% \social[researchgate]{Hoxiang Fan}
+\social[googlescholar]{Hongxiang Fan}
+\social[orcid]{0000-0001-7626-1344}
+\social[github]{hxfan1227}                              % optional, remove / comment the line if not wanted
+
+%\extrainfo{additional information}                 % optional, remove / comment the line if not wanted
+\photo[90pt][0pt]{fhx}                       % optional, remove / comment the line if not wanted; '64pt' is the height the picture must be resized to, 0.4pt is the thickness of the frame around it (put it to 0pt for no frame) and 'picture' is the name of the picture file
+% \quote{Best way to predict the future is to create it.}                                 % optional, remove / comment the line if not wanted
+
+% bibliography adjustements (only useful if you make citations in your resume, or print a list of publications using BibTeX)
+%   to show numerical labels in the bibliography (default is to show no labels)
+% \makeatletter\renewcommand*{\bibliographyitemlabel}{\@biblabel{\arabic{enumiv}}}\makeatother
+% %   to redefine the bibliography heading string ("Publications")
+% \renewcommand{\refname}{}
+
+\definecolor{Customblue}{rgb}{0.22, 0.45, 0.70} % 定义颜色
+
+\addbibresource{fhx_publications.bib}
+% \DefineBibliographyStrings{english}{%
+%   references = {Publications},
+% }
+
+\makeatletter
+
+% \DeclareSourcemap{
+%     % 标记第一作者的文章
+%     \maps[datatype=bibtex]{
+%         \map{
+%             \step[fieldsource=author, match=\regexp{^\s*Fan,\s*Hongxiang\b}, final]
+%             \step[fieldset=keywords, fieldvalue={firstauthor}, append]
+%         }
+%     }
+% }
+
+% \renewcommand*{\mkbibnamefamily}[1]{%
+%   \ifitemannotation{thesisauthor}
+%     {\ifitemannotation{corresponding}
+%       {\ifbibliography{\textcolor{Customblue}{\textbf{#1}}}{\textcolor{Customblue}{\textbf{#1}}}}
+%       {\ifbibliography{\textcolor{Customblue}{\textbf{#1}}}{#1}}}
+%     {\ifbibliography{#1}{#1}}%
+% }
+
+
+% \renewcommand*{\mkbibnamegiven}[1]{%
+%   \ifitemannotation{thesisauthor}
+%     {\ifitemannotation{corresponding}
+%       {\ifbibliography{\textcolor{Customblue}{\textbf{#1\textsuperscript{*}}}}{\textcolor{Customblue}{\textbf{#1}}}}
+%       {\ifbibliography{\textcolor{Customblue}{\textbf{#1}}}{#1}}}
+%     {\ifitemannotation{corresponding}
+%       {\ifbibliography{#1\textsuperscript{*}}{#1}}%
+%       {\ifbibliography{#1}{#1}}}%
+% }
+
+
+
+% 定义解析 annotation 的函数
+\ExplSyntaxOn
+\NewDocumentCommand{\parseannotation}{m}
+{
+  \clist_map_inline:nn {#1}
+  {
+    \str_if_eq:nnT {##1} {thesisauthor} { \itemannotation{thesisauthor} }
+    \str_if_eq:nnT {##1} {corresponding} { \itemannotation{corresponding} }
+  }
+}
+\ExplSyntaxOff
+
+% 修改作者格式以支持动态标记
+\DeclareNameFormat{author}{%
+  \parseannotation{\thefield{annotation}} % 解析 annotation
+  \nameparts{#1}%
+  \ifgiveninits
+    {\usebibmacro{name:family-given}{\namepartfamily}{\namepartgiveni}{\namepartprefix}{\namepartsuffix}}
+    {\usebibmacro{name:family-given}{\namepartfamily}{\namepartgiven}{\namepartprefix}{\namepartsuffix}}%
+  \usebibmacro{name:andothers}%
+}
+
+% 修改姓氏和名字的显示格式
+\renewcommand*{\mkbibnamefamily}[1]{%
+  \ifitemannotation{thesisauthor}
+    {\ifbibliography{\textcolor{Customblue}{\textbf{#1}}}{#1}} % thesisauthor：加粗和颜色
+    {\ifitemannotation{corresponding}
+      {\ifbibliography{#1}{#1}} % corresponding：不加粗和颜色
+      {\ifbibliography{#1}{#1}}}%
+}
+
+\renewcommand*{\mkbibnamegiven}[1]{%
+  \ifitemannotation{thesisauthor}
+    {\ifitemannotation{corresponding}
+      {\ifbibliography{\textcolor{Customblue}{\textbf{#1\textsuperscript{*}}}}{#1}} % 同时满足：加粗、颜色和 *
+      {\ifbibliography{\textcolor{Customblue}{\textbf{#1}}}{#1}}} % 仅 thesisauthor：加粗和颜色
+    {\ifitemannotation{corresponding}
+      {\ifbibliography{#1\textsuperscript{*}}{#1}} % 仅 corresponding：加 *
+      {\ifbibliography{#1}{#1}}}%
+}
+
+\renewcommand{\bibfont}{\zihao{5}\fangsong}
+
+\defdoublelangentry{FanXuZhaoEtAl2015EaES_CH}{FanXuZhaoEtAl2015EaES}
+\defdoublelangentry{FengXuFanEtAl2015JoSNUNSE_CH}{FengXuFanEtAl2015JoSNUNSE}
+\defdoublelangentry{ChengXuJiangEtAl2016JoAS_CH}{ChengXuJiangEtAl2016JoAS}
+\defdoublelangentry{HuangXuFanEtAl2018RoES_CH}{HuangXuFanEtAl2018RoES}
+\defdoublelangentry{MengYeXuEtAl2018WS_CH}{MengYeXuEtAl2018WS}
+\defdoublelangentry{DuXuZhangEtAl2019RoES_CH}{DuXuZhangEtAl2019RoES}
+\defdoublelangentry{WangLiuHeEtAl2019TAaToEM_CH}{WangLiuHeEtAl2019TAaToEM}
+\defdoublelangentry{DuXuJiangEtAl2020WS_CH}{DuXuJiangEtAl2020WS}
+\defdoublelangentry{FanHeXuEtAl2021JoLS_CH}{FanHeXuEtAl2021JoLS}
+\defdoublelangentry{FanXuZhuEtAl2021JoLS_CH}{FanXuZhuEtAl2021JoLS}
+\defdoublelangentry{LiuTanFan2021YR_CH}{LiuTanFan2021YR}
+\defdoublelangentry{LuHuangXuEtAl2021TAaToEM_CH}{LuHuangXuEtAl2021TAaToEM}
+\defdoublelangentry{ZhangZhengXuEtAl2021TAaToEM_CH}{ZhangZhengXuEtAl2021TAaToEM}
+\defdoublelangentry{CaoXuFanEtAl2022JoLS_CH}{CaoXuFanEtAl2022JoLS}
+\defdoublelangentry{MaoXuLaiEtAl2023JoLS_CH}{MaoXuLaiEtAl2023JoLS}
+\defdoublelangentry{DingJiangXuEtAl2024JoLS_CH}{DingJiangXuEtAl2024JoLS}
+\defdoublelangentry{DingFanXuEtAl2024JoLS_CH}{DingFanXuEtAl2024JoLS}
+\defdoublelangentry{LiDingFanEtAl2025JoLS_CH}{LiDingFanEtAl2025JoLS}
+\defdoublelangentry{ChenFanPengEtAl2025JoHNUSE_CH}{ChenFanPengEtAl2025JoHNUSE}
+\defdoublelangentry{WangLeiFanEtAl2023TAaToEM_CH}{WangLeiFanEtAl2023TAaToEM}
+
+
+\renewcommand{\begrelateddelim}{\adddot(in Chinese)\newline\nobreak}
+\makeatother
+
+
+
+% \newcites{book,misc}{{Books},{Others}}
+%----------------------------------------------------------------------------------
+%            content
+%----------------------------------------------------------------------------------
+\begin{document}
+%\begin{CJK*}{UTF8}{gbsn}                          % to typeset your resume in Chinese using CJK
+%-----       resume       ---------------------------------------------------------
+\makecvtitle
+% \vspace{-16pt}
+\section{Employment}
+\cventry{2024--2025}{Visiting Scholar}{Flinders University}{}{}{}
+\cventry{2019--2023}{Assistant Professor}{Nanjing Institute of Geography and Limnology}{Chinese Academy of Sciences}{}{}
+
+\section{Education}
+\cventry{2016--2019}{Ph.D. in Physical Geography}{University of Chinese Academy of Sciences}{}{}{}  % arguments 3 to 6 can be left empty
+\cventry{2013--2016}{Master in Physical Geography}{University of Chinese Academy of Sciences}{}{}{}
+\cventry{2009--2013}{Bachelor in Environmental Engineering}{Huazhong Agricultural University}{}{}{}
+
+% \section{Research Interests}
+% % \cvitem{title}{\emph{Influential mechanism of hydrological connectivity on water quality in the floodplain of Poyang Lake}}
+% % \cvitem{supervisors}{Dr. Aniruddhan Sankaran, Dr. Anil Prabhakar}
+% \cvitem{description}{This study utilized continuous water level monitoring and remote sensing technology to quantify the dynamic changes in hydrological connectivity within floodplain wetlands. A novel algorithm was created to evaluate surface hydrological connectivity, revealing that increased connectivity enhances spatial congruity in water quality among floodplain lakes. Conversely, surface hydrological isolation amplifies discrepancies in water quality between seasonal lakes. Enhanced hydrological connectivity may improve water quality in seasonal lakes transitioning from low to high connectivity.}
+
+% \section{Relevant Coursework}
+% \begin{cvcolumns}
+%   \cvcolumn[0.4]{}{
+%   \begin{itemize}
+%     \item{Hydrology}
+%     \item{Hydrogeology}
+%     \item{Hydraulics}
+%     \item{Meteorology}
+%     \item{Hydrological Modeling}
+%   \end{itemize}}
+%   \cvcolumn{}{\begin{itemize}
+%     \item{Geographical Information Science}
+%     \item{Numerical Simulations of Water Environment}
+%     \item{Groundwater Dynamics}
+%     \item{Stochastic Hydrology}
+%     \item{Hydrological Forecasting}
+%   \end{itemize}}
+%  % \cvcolumn[0.4]{}{\textit{Dr. S.B.Bodke (GHRCE)}, and \textit{Dr. Satyanarayna B. (TIFR)} }
+% \end{cvcolumns}
+
+\section{Research Experience}
+% \subsection{Regular}
+% \cventry{2018--2022}{}{Research assistant}{}{}{\textbf{} 
+\cventry{2019--Current}{Assistant Professor}{Nanjing Institute of Geography and Limnology}{}{}{ 
+% \newline{}%
+% Achievements:%
+\begin{itemize}%
+\item Built a fully coupled model for surface-groundwater interaction in floodplain wetlands.
+\item Developed a new algorithm for evaluating surface hydrological connectivity with parallel computing technique.
+\item Explored how convective behaviors and moisture sources determine the variability of precipitation stable isotope.
+\item Developed a random forest model to predict river isotopes across China at the catchment scale.
+\end{itemize}}
+
+\cventry{2016--2019}{Ph.D. Candidate}{University of Chinese Academy of Science}{}{}{ 
+% \newline{}%
+% Achievements:%
+\begin{itemize}%
+\item Built a 2D water environment model for Poyang Lake in China and coupled it with a runoff prediction model.
+\item Attributed the relative contributions of climate change and anthropogenic activities on the water environment.
+\end{itemize}}
+
+% \section{Work Experience}
+% % \subsection{Regular}
+% \cventry{2020--2021}{Teaching assistant}{University of Chinese Academy of Sciences, Nanjing}{\newline{}Data mining and visualization with R}{}{ 
+% % \newline{}%
+% % Achievements:%
+% \begin{itemize}%
+% \item Responsible for guiding students on theoretical concepts related to data structures as well as addressing R software application issues.
+% \item Assisted the teacher in designing the final assessment format and grading assignments.
+% \end{itemize}}
+
+% \cventry{2020--2023}{Environmental Impact Assessment Consultant}{Guangdong Zhihuan Innovation Environment Technology Co., LTD}{\newline{}Department of Marine Eco-Environemt}{}{ 
+% % \newline{}%
+% % Achievements:%
+% \begin{itemize}%
+% \item Constructed more than 7 hydrodynamic models of marine-related engineering projects using MIKE, ArcGIS, and EFDC, and conducted risk predictions for both construction and operational phases.
+% \item Responsible for analyzing hydrological, environmental, sediment, soil, and noise data, and conducting current state evaluations.
+% \item Responsible for liaising with project owners, writing engineering analysis and compliance reports for projects.
+% \end{itemize}}
+
+% \section{Awards}
+% \cventry{2022}{Merit Student}{University of Chinese Academy of Sciences}{}{}{}
+% \cventry{2020}{Excellent Presentation Award}{Ecological Society of China}{}{}{} 
+% \cventry{2019}{Second-class Scholarship}{University of Chinese Academy of Sciences}{}{}{} 
+% \cventry{2018}{Merit Student}{Northwest A\&F University}{}{}{}  
+% \cvitemwithcomment{Merit Student}{University of Chinese Academy of Sciences}{2022}
+% \cvitemwithcomment{Excellent Presentation Award}{Ecological Society of China}{2020}
+% \cvitemwithcomment{Second-class Scholarship}{University of Chinese Academy of Sciences}{2019}
+% \cvitemwithcomment{Merit Student}{Northwest A\&F University}{2018}
+% \cvitemwithcomment{HTML,PHP}{Basic}{2015 - Present (satakshi.in)}
+
+% \section{Technical Skills}
+% \cvitemwithcomment{R}{Intermediate}{2019 - Present, Rstudio}
+% \cvitemwithcomment{Python}{Basic}{2019 - Present, Spyder IDE}
+% \cvitemwithcomment{EFDC}{Intermediate}{2019 - Present, EFDC Explorer, efdcr}
+% \cvitemwithcomment{MIKE}{Intermediate}{MIKE 21, MIKE 11}
+
+% \section{Computer skills}
+% \cvdoubleitem{EDA}{Allegro, Eagle, KiCad}{Application}{MATLAB}
+% \cvdoubleitem{Device Simulation}{Virtuoso-IC, Vivado, Quartus}{Circuit Simulation}{Spice Opus, NGSpice, LTSpice}
+% \cvdoubleitem{CAD}{Wings3D, Sketch-up}{Documentation}{MS Office, Libre Office, tex}
+
+% \section{Interests}
+% \cvitem{Blogging}{blog.satakshi.in}
+% \cvitem{Circuit design}{EEZ-PSU hardware issue debugging (github)}
+% \cvitem{Coding}{Active on Hacker Rank (Algorithm challenge)}
+
+% \section{Extracurricular activity}
+% \cventry{2019 -- 2020}{University Photojournalist}{University of Chinese Academy of Sciences}{}{}{} 
+% \begin{itemize}%
+% \item Attended approximately 15 conferences as a photographer, as well as around 10 event photography sessions.
+% \item Photography works have been selected 4 times for inclusion in the magazine of the University of Chinese Academy of Sciences.
+% \end{itemize}
+
+% \section{Extra Curricular}
+% \cvlistitem{Hovercraft design competition finalist at kshitij-2011 (IIT Kharagpur).}
+% \cvlistitem{Co-ordinator at EPICS-2011, G H R C E, Nagpur.}
+% \cvlistitem{Represented R. K. College, Madhubani in inter college table-tennis tournament (L. N. M. University,
+% Darbhanga, Bihar) 2006.}
+
+% \section{References}
+% \begin{cvcolumns}
+%   \cvcolumn{IITM}{\begin{itemize}\item Dr. Anil P.\item Dr. Aniruddhan S.\item Dr. P.K.Behera\end{itemize}}
+%   \cvcolumn{DU}{\begin{itemize}\item Dr. Md. Naimuddin, \item Dr. Ashok K.\end{itemize}}
+%  \cvcolumn[0.4]{All the rest \& some more}{\textit{Dr. S.B.Bodke (GHRCE)}, and \textit{Dr. Satyanarayna B. (TIFR)} }
+% \end{cvcolumns}
+
+% Publications from a BibTeX file without multibib
+%  for numerical labels: \renewcommand{\bibliographyitemlabel}{\@biblabel{\arabic{enumiv}}}% CONSIDER MERGING WITH PREAMBLE PART
+%  to redefine the heading string ("Publications"): \renewcommand{\refname}{Articles}
+% \nocite{*}
+% \bibliographystyle{unsrt}
+% \bibliography{publications}                      % 'publications' is the name of a BibTeX file
+
+% \section{Publications}
+%     \begin{enumerate}
+%         \item \textbf{Cao Yuxian}, Xu Ligang, Fan Hongxiang, \textit{et al}. Impact of climate change and human activities on the changes of ecological flow indicators in the Lake Poyang Basin since 1960s. Lake Sciences, 2022, 34(01) 232-246.
+
+%         \item Fan Hongxiang, Xu Ligang, Zhu Hua, Lu Zhao, \textbf{Cao Yuxian}, \textit{et al}. Distinguishing the relative impacts of climate change and anthropogenic activities on variation of water age in the Lake Poyang. Lake Sciences, 2021, 33(04) 1175-1187.
+%     \end{enumerate}
+
+% \section{Publications}
+
+\printbibliography[keyword=firstauthor,title={First \& Corresponding author Publications}, resetnumbers=true]
+\printbibliography[keyword=otherauthor,title={Co-auhtor Publications}, resetnumbers=true]
+\printbibliography[keyword=chinese,title={Publications in Chinese}, resetnumbers=true]
+\nocite{*}
+
+% Publications from a BibTeX file using the multibib package
+%\section{Publications}
+%\nocitebook{book1,book2}
+%\bibliographystylebook{plain}
+%\bibliographybook{publications}                   % 'publications' is the name of a BibTeX file
+%\nocitemisc{misc1,misc2,misc3}
+%\bibliographystylemisc{plain}
+%\bibliographymisc{publications}                   % 'publications' is the name of a BibTeX file
+
+% \clearpage
+% %-----       letter       ---------------------------------------------------------
+% % recipient data
+% \recipient{Company Recruitment team}{Company, Inc.\\123 somestreet\\some city}
+% \date{January 01, 1984}
+% \opening{Dear Sir or Madam,}
+% \closing{Yours faithfully,}
+% \enclosure[Attached]{curriculum vit\ae{}}          % use an optional argument to use a string other than "Enclosure", or redefine \enclname
+% \makelettertitle
+
+% Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ullamcorper neque sit amet lectus facilisis sed luctus nisl iaculis. Vivamus at neque arcu, sed tempor quam. Curabitur pharetra tincidunt tincidunt. Morbi volutpat feugiat mauris, quis tempor neque vehicula volutpat. Duis tristique justo vel massa fermentum accumsan. Mauris ante elit, feugiat vestibulum tempor eget, eleifend ac ipsum. Donec scelerisque lobortis ipsum eu vestibulum. Pellentesque vel massa at felis accumsan rhoncus.
+
+% Suspendisse commodo, massa eu congue tincidunt, elit mauris pellentesque orci, cursus tempor odio nisl euismod augue. Aliquam adipiscing nibh ut odio sodales et pulvinar tortor laoreet. Mauris a accumsan ligula. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse vulputate sem vehicula ipsum varius nec tempus dui dapibus. Phasellus et est urna, ut auctor erat. Sed tincidunt odio id odio aliquam mattis. Donec sapien nulla, feugiat eget adipiscing sit amet, lacinia ut dolor. Phasellus tincidunt, leo a fringilla consectetur, felis diam aliquam urna, vitae aliquet lectus orci nec velit. Vivamus dapibus varius blandit.
+
+% Duis sit amet magna ante, at sodales diam. Aenean consectetur porta risus et sagittis. Ut interdum, enim varius pellentesque tincidunt, magna libero sodales tortor, ut fermentum nunc metus a ante. Vivamus odio leo, tincidunt eu luctus ut, sollicitudin sit amet metus. Nunc sed orci lectus. Ut sodales magna sed velit volutpat sit amet pulvinar diam venenatis.
+
+% Albert Einstein discovered that $e=mc^2$ in 1905.
+
+% \[ e=\lim_{n \to \infty} \left(1+\frac{1}{n}\right)^n \]
+
+% \makeletterclosing
+
+% %\clearpage\end{CJK*}                              % if you are typesetting your resume in Chinese using CJK; the \clearpage is required for fancyhdr to work correctly with CJK, though it kills the page numbering by making \lastpage undefined
+\end{document}
+
+
+%% end of file `template.tex'.
