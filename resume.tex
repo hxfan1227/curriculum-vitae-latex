@@ -147,6 +147,11 @@
 
 \include{ch_en.tex}
 
+% 修复 XeTeXglyph 与 academicons 冲突
+\DeclareMicrotypeSet*[tracking]{noicons}{
+  family = {Academicons, FontAwesome5Free, FontAwesome5Brands}
+}
+\UseMicrotypeSet[activate=false]{noicons}
 
 \renewcommand{\begrelateddelim}{\adddot(in Chinese)\newline\nobreak}
 \makeatother
