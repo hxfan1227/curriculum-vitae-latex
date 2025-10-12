@@ -56,10 +56,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Compile LaTeX Document
-        uses: xu-cheng/latex-action@v3
+        uses: xu-cheng/latex-action@v4
         with:
           root_file: resume.tex
-          latexmk_use_xelatex: true
+          latexmk_use_lualatex: true
 
       - name: Move PDF to site Directory
         run: |
