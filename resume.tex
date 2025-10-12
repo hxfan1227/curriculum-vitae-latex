@@ -147,12 +147,12 @@
 
 \include{ch_en.tex}
 
-% ---- 修复 XeTeXglyph 与 academicons 冲突（新版 microtype 语法） ----
-\DeclareMicrotypeSet*[tracking]{noicons}{
-  family = {Academicons, FontAwesome5Free, FontAwesome5Brands}
-}
-\SetTracking{encoding = *, shape = *}{0} % 保持 microtype 活动但无字距调整
-\microtypecontext{tracking=noicons}
+% % ---- 修复 XeTeXglyph 与 academicons 冲突（新版 microtype 语法） ----
+% \DeclareMicrotypeSet*[tracking]{noicons}{
+%   family = {Academicons, FontAwesome5Free, FontAwesome5Brands}
+% }
+% \SetTracking{encoding = *, shape = *}{0} % 保持 microtype 活动但无字距调整
+% \microtypecontext{tracking=noicons}
 
 \renewcommand{\begrelateddelim}{\adddot(in Chinese)\newline\nobreak}
 \makeatother
